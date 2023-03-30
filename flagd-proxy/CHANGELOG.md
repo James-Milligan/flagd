@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/james-milligan/flagd/compare/flagd-proxy/v0.2.0...flagd-proxy/v0.2.1) (2023-03-30)
+
+
+### ✨ New Features
+
+* bump ([d4bd192](https://github.com/james-milligan/flagd/commit/d4bd19203e12cc2d4c481a2387166229942d1ab6))
+
 ## [0.2.0](https://github.com/james-milligan/flagd/compare/flagd-proxy-v0.1.2...flagd-proxy/v0.2.0) (2023-03-30)
 
 
