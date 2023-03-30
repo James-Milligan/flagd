@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.4.6](https://github.com/james-milligan/flagd/compare/flagd-v0.4.5...flagd/v0.4.6) (2023-03-30)
+
+
+### 📚 Documentation
+
+* improve markdown quality ([#498](https://github.com/james-milligan/flagd/issues/498)) ([c77fa37](https://github.com/james-milligan/flagd/commit/c77fa37979899f95ba51f69eeee21d96b6ab239c))
+
+
+### ✨ New Features
+
+* grpc connection options to flagd configuration options ([#532](https://github.com/james-milligan/flagd/issues/532)) ([aa74951](https://github.com/james-milligan/flagd/commit/aa74951f43b662ff2df53e68d347fc10e6d23bb8))
+* Introduce flagd kube proxy ([#495](https://github.com/james-milligan/flagd/issues/495)) ([440864c](https://github.com/james-milligan/flagd/commit/440864ce87174618321c9d5146221490d8f07b24))
+* Restructure for monorepo setup ([#486](https://github.com/james-milligan/flagd/issues/486)) ([ed2993c](https://github.com/james-milligan/flagd/commit/ed2993cd67b8a46db3beb6bb8a360e1aa20349da))
+
+
+### 🐛 Bug Fixes
+
+* benchmark pipeline ([#538](https://github.com/james-milligan/flagd/issues/538)) ([62cc0fc](https://github.com/james-milligan/flagd/commit/62cc0fcfd6a63a6059352704117dbb78160eb689))
+* **deps:** update module github.com/open-feature/flagd/core to v0.4.5 ([#552](https://github.com/james-milligan/flagd/issues/552)) ([41799f6](https://github.com/james-milligan/flagd/commit/41799f624c261a84599cdd406cf28f4b33e49851))
+
+
+### 🧹 Chore
+
+* refactor configuration handling for startup ([#551](https://github.com/james-milligan/flagd/issues/551)) ([8dfbde5](https://github.com/james-milligan/flagd/commit/8dfbde5bbffd16fb66797a750d15f0226edf54a7))
+* release main ([#488](https://github.com/james-milligan/flagd/issues/488)) ([873c7b3](https://github.com/james-milligan/flagd/commit/873c7b37dbbfefa8f6448fb1dec06b2ce40fb02d))
+* release main ([#512](https://github.com/james-milligan/flagd/issues/512)) ([85a0f0d](https://github.com/james-milligan/flagd/commit/85a0f0d4d97d9388dcd291b2a96e8bbbdd53c2a7))
+
 ## [0.4.5](https://github.com/open-feature/flagd/compare/flagd/v0.4.4...flagd/v0.4.5) (2023-03-20)
 
 
