@@ -17,7 +17,7 @@ var (
 	{{ .AnsiColor.BrightRed }}	/_____/\ /_/\     /_______/\ /______/\  /_____/\     
 	{{ .AnsiColor.BrightRed }}	\::::_\/_\:\ \    \::: _  \ \\::::__\/__\:::_ \ \    
 	{{ .AnsiColor.BrightRed }}	 \:\/___/\\:\ \    \::(_)  \ \\:\ /____/\\:\  \ \ \   
-	{{ .AnsiColor.BrightRed }}	  \:::._\/ \:\ \____\:: __  \ \\:\\_  _\/ \:\ \ \ \  
+	{{ .AnsiColor.BrightRed }}	  \:::._\/ \:\ \____\:: __  \ \\:\\_  _\/ \:\ \ \ \  bump
 	{{ .AnsiColor.BrightRed }}	   \:\ \    \:\/___/\\:.\ \  \ \\:\_\ \ \  \:\/.:| | 
 	{{ .AnsiColor.BrightRed }}	    \_\/     \_____\/ \__\/\__\/ \_____\/   \____/_/ 
 	{{ .AnsiColor.BrightRed }}	                                   Kubernetes Proxy  
