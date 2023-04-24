@@ -19,6 +19,7 @@ import (
 	flageval "github.com/open-feature/flagd/core/pkg/service/flag-evaluation"
 	"github.com/open-feature/flagd/core/pkg/store"
 	"github.com/open-feature/flagd/core/pkg/sync"
+	"github.com/open-feature/flagd/core/pkg/sync/dapr"
 	"github.com/open-feature/flagd/core/pkg/sync/file"
 	"github.com/open-feature/flagd/core/pkg/sync/grpc"
 	httpSync "github.com/open-feature/flagd/core/pkg/sync/http"
@@ -35,6 +36,7 @@ const (
 	syncProviderGrpc       = "grpc"
 	syncProviderKubernetes = "kubernetes"
 	syncProviderHTTP       = "http"
+	syncProviderDapr       = "dapr"
 	svcName                = "openfeature/flagd"
 )
 
@@ -44,6 +46,7 @@ var (
 	regGRPC       *regexp.Regexp
 	regGRPCSecure *regexp.Regexp
 	regFile       *regexp.Regexp
+	regDapr       *regexp.Regexp
 )
 
 // SourceConfig is configuration option for flagd. This maps to startup parameter sources
@@ -56,6 +59,9 @@ type SourceConfig struct {
 	TLS         bool   `json:"tls,omitempty"`
 	ProviderID  string `json:"providerID,omitempty"`
 	Selector    string `json:"selector,omitempty"`
+
+	StoreName   string `json:"storeName,omitempty"`
+	DaprAddress string `json:"daprAddress,omitempty"`
 }
 
 // Config is the configuration structure derived from startup arguments.
@@ -78,6 +84,7 @@ func init() {
 	regGRPC = regexp.MustCompile("^" + grpc.Prefix)
 	regGRPCSecure = regexp.MustCompile("^" + grpc.PrefixSecure)
 	regFile = regexp.MustCompile("^file:")
+	regDapr = regexp.MustCompile("^dapr:")
 }
 
 // FromConfig builds a runtime from startup configurations
@@ -145,6 +152,12 @@ func syncProvidersFromConfig(logger *logger.Logger, sources []SourceConfig) ([]s
 
 	for _, syncProvider := range sources {
 		switch syncProvider.Provider {
+		case syncProviderDapr:
+			s, err := NewDapr(syncProvider, logger)
+			if err != nil {
+				return nil, err
+			}
+			syncImpls = append(syncImpls, s)
 		case syncProviderFile:
 			syncImpls = append(syncImpls, NewFile(syncProvider, logger))
 			logger.Debug(fmt.Sprintf("using filepath sync-provider for: %q", syncProvider.URI))
@@ -168,6 +181,18 @@ func syncProvidersFromConfig(logger *logger.Logger, sources []SourceConfig) ([]s
 		}
 	}
 	return syncImpls, nil
+}
+
+func NewDapr(config SourceConfig, logger *logger.Logger) (*dapr.Sync, error) {
+	if config.StoreName == "" {
+		return nil, fmt.Errorf("dapr sync provider %s missing StoreName field in config", config.StoreName)
+	}
+	return &dapr.Sync{
+		URI:       config.URI,
+		StoreName: config.StoreName,
+		Address:   config.DaprAddress,
+		Logger:    logger,
+	}, nil
 }
 
 func NewGRPC(config SourceConfig, logger *logger.Logger) *grpc.Sync {
@@ -278,6 +303,8 @@ func ParseSyncProviderURIs(uris []string) ([]SourceConfig, error) {
 				Provider: syncProviderGrpc,
 				TLS:      true,
 			})
+		case regDapr.Match(uriB):
+			return nil, fmt.Errorf("dapr source configurations must be passed via the --sync-providers flag due to required fields")
 		default:
 			return syncProvidersParsed, fmt.Errorf("invalid sync uri argument: %s, must start with 'file:', "+
 				"'http(s)://', 'grpc(s)://', or 'core.openfeature.dev'", uri)
