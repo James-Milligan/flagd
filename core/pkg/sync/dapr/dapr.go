@@ -34,6 +34,7 @@ func (d *Sync) Init(ctx context.Context) error {
 
 	d.client = client
 	d.ready = true
+
 	return nil
 }
 
@@ -43,7 +44,6 @@ func (d *Sync) Sync(ctx context.Context, dataSync chan<- isync.DataSync) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(config)
 	dataSync <- sync.DataSync{
 		FlagData: config,
 		Source:   fmt.Sprintf("%s/%s", d.StoreName, d.URI),
